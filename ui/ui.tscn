@@ -23,9 +23,9 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 228.0
+offset_left = 185.0
 offset_right = 280.0
-offset_bottom = 27.0
+offset_bottom = 75.0
 grow_horizontal = 0
 size_flags_horizontal = 0
 theme = ExtResource("3_dydw8")
@@ -40,6 +40,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 16
 text = "debug"
+autowrap_mode = 1
+text_overrun_behavior = 3
 
 [node name="Menu" type="Panel" parent="Control"]
 layout_mode = 0
