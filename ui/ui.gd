@@ -61,13 +61,19 @@ func slide_panel(panel: Panel, reverse: bool, horizontal: bool):
       elif is_onscreen and !will_be_onscreen: panel.hide()
       panel.position = target
 
-func change_tab(new_tab):
+func change_tab(new_tab: Control):
    if current_menu_tab == new_tab: return
    if panels.Menu.visible: await slide_panel(panels.Menu, false, true)
    current_menu_tab.hide()
    current_menu_tab = new_tab
    current_menu_tab.show()
    await slide_panel(panels.Menu, true, true)
+
+func reset():  #TODO reset the ui
+   pass
+
+func load_menu_state():    #TODO load a menu combo
+   pass
 
 func pause_game():
    if panels.Menu.visible and get_tree().paused == false:
