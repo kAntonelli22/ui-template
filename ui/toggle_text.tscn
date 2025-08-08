@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://2hb6n8firxba"]
+
+[ext_resource type="Theme" uid="uid://qrw5h14vf5pu" path="res://ui/simple_dark.tres" id="1_der1v"]
+[ext_resource type="Script" uid="uid://m4g6c4tbil6c" path="res://ui/toggle_text.gd" id="2_k34is"]
+
+[node name="ToggleText" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+theme = ExtResource("1_der1v")
+toggle_mode = true
+text = "Text"
+flat = true
+script = ExtResource("2_k34is")
+options = Array[String](["text", "new text", "bfsdf"])
+current_option = 41
+text_color = Color(0.67451, 0, 0, 1)
+
+[node name="PanelContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 1
+alignment = 1
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

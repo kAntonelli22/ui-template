@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkc88ds5asroe"]
+
+[sub_resource type="GDScript" id="GDScript_mf4mk"]
+script/source = "extends Node2D
+
+@onready var button: Button = $Button
+
+func _on_button_pressed() -> void:
+   Util.tween_text(\"words\", button.position + button.size/2)
+"
+
+[node name="test" type="Node2D"]
+script = SubResource("GDScript_mf4mk")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 138.0
+offset_top = 87.0
+offset_right = 204.0
+offset_bottom = 141.0
+text = "test"
+
+[node name="Label" type="Label" parent="."]
+offset_right = 50.0
+offset_bottom = 30.0
+pivot_offset = Vector2(25, 15)
+text = "text"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
