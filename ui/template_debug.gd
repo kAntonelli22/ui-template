@@ -5,4 +5,5 @@ extends Node
 
 
 func _on_button_pressed() -> void:
-   ui.slide_panel(ui.panels.Menu, true, true)
+   #ui.slide_panel(ui.panels.Menu, true, true)
+   $"../Control/MenuSlider".move_to_next_point()

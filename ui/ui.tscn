@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbuo380y7olnq"]
+[gd_scene load_steps=6 format=3 uid="uid://dbuo380y7olnq"]
 
 [ext_resource type="Script" uid="uid://cqul25inxog7u" path="res://ui/ui.gd" id="1_wexb5"]
 [ext_resource type="Script" uid="uid://bcoc3jlisr6dn" path="res://ui/template_debug.gd" id="3_5yis2"]
 [ext_resource type="Theme" uid="uid://qrw5h14vf5pu" path="res://ui/simple_dark.tres" id="3_dydw8"]
+[ext_resource type="PackedScene" uid="uid://c0ciovncc8jto" path="res://ui/ui_slider.tscn" id="3_vkava"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vaojm"]
 bg_color = Color(0.0823529, 0.0823529, 0.101961, 0.235294)
@@ -43,12 +44,22 @@ text = "debug"
 autowrap_mode = 1
 text_overrun_behavior = 3
 
-[node name="Menu" type="Panel" parent="Control"]
+[node name="MenuSlider" parent="Control" node_paths=PackedStringArray("node") instance=ExtResource("3_vkava")]
+layout_mode = 1
+node = NodePath("Menu")
+lock_during_transition = true
+debug = false
+
+[node name="Line2D" parent="Control/MenuSlider" index="0"]
+visible = false
+points = PackedVector2Array(0, 0, -94, 0)
+
+[node name="Menu" type="Panel" parent="Control/MenuSlider"]
 layout_mode = 0
 offset_right = 94.0
 offset_bottom = 180.0
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/Menu"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/MenuSlider/Menu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -60,10 +71,10 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="MainMenu" type="Control" parent="Control/Menu/MarginContainer"]
+[node name="MainMenu" type="Control" parent="Control/MenuSlider/Menu/MarginContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/Menu/MarginContainer/MainMenu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MenuSlider/Menu/MarginContainer/MainMenu"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -72,41 +83,41 @@ grow_horizontal = 2
 theme_override_constants/separation = 1
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/Menu/MarginContainer/MainMenu/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/MenuSlider/Menu/MarginContainer/MainMenu/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="Control/Menu/MarginContainer/MainMenu/VBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="Control/MenuSlider/Menu/MarginContainer/MainMenu/VBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Title"
 horizontal_alignment = 1
 
-[node name="Play" type="Button" parent="Control/Menu/MarginContainer/MainMenu/VBoxContainer"]
+[node name="Play" type="Button" parent="Control/MenuSlider/Menu/MarginContainer/MainMenu/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 text = "Play"
 alignment = 0
 
-[node name="Settings" type="Button" parent="Control/Menu/MarginContainer/MainMenu/VBoxContainer"]
+[node name="Settings" type="Button" parent="Control/MenuSlider/Menu/MarginContainer/MainMenu/VBoxContainer"]
 layout_mode = 2
 toggle_mode = true
 text = "Settings"
 alignment = 0
 
-[node name="Quit" type="Button" parent="Control/Menu/MarginContainer/MainMenu/VBoxContainer"]
+[node name="Quit" type="Button" parent="Control/MenuSlider/Menu/MarginContainer/MainMenu/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
 alignment = 0
 
-[node name="PauseMenu" type="Control" parent="Control/Menu/MarginContainer"]
+[node name="PauseMenu" type="Control" parent="Control/MenuSlider/Menu/MarginContainer"]
 visible = false
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/Menu/MarginContainer/PauseMenu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MenuSlider/Menu/MarginContainer/PauseMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -115,45 +126,58 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 1
 
-[node name="Label" type="Label" parent="Control/Menu/MarginContainer/PauseMenu/VBoxContainer"]
+[node name="Label" type="Label" parent="Control/MenuSlider/Menu/MarginContainer/PauseMenu/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Paused"
 horizontal_alignment = 1
 
-[node name="Resume" type="Button" parent="Control/Menu/MarginContainer/PauseMenu/VBoxContainer"]
+[node name="Resume" type="Button" parent="Control/MenuSlider/Menu/MarginContainer/PauseMenu/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Resume"
 alignment = 0
 
-[node name="Menu" type="Button" parent="Control/Menu/MarginContainer/PauseMenu/VBoxContainer"]
+[node name="Menu" type="Button" parent="Control/MenuSlider/Menu/MarginContainer/PauseMenu/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Menu"
 alignment = 0
 
-[node name="Settings" type="Button" parent="Control/Menu/MarginContainer/PauseMenu/VBoxContainer"]
+[node name="Settings" type="Button" parent="Control/MenuSlider/Menu/MarginContainer/PauseMenu/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 toggle_mode = true
 text = "Settings"
 alignment = 0
 
-[node name="Quit" type="Button" parent="Control/Menu/MarginContainer/PauseMenu/VBoxContainer"]
+[node name="Quit" type="Button" parent="Control/MenuSlider/Menu/MarginContainer/PauseMenu/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Quit"
 alignment = 0
 
-[node name="Settings" type="Panel" parent="Control"]
-visible = false
+[node name="SettingsSlider" parent="Control" node_paths=PackedStringArray("node") instance=ExtResource("3_vkava")]
 layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
 offset_left = 320.0
-offset_right = 546.0
+offset_right = 320.0
+grow_horizontal = 1
+grow_vertical = 1
+node = NodePath("Settings")
+lock_during_transition = true
+
+[node name="Line2D" parent="Control/SettingsSlider" index="0"]
+points = PackedVector2Array(320, 0, 94, 0)
+
+[node name="Settings" type="Panel" parent="Control/SettingsSlider"]
+layout_mode = 0
+offset_right = 226.0
 offset_bottom = 180.0
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/Settings"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/SettingsSlider/Settings"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -165,32 +189,32 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/Settings/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/SettingsSlider/Settings/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Control/Settings/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Control/SettingsSlider/Settings/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/Settings/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/SettingsSlider/Settings/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Left" type="VBoxContainer" parent="Control/Settings/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Left" type="VBoxContainer" parent="Control/SettingsSlider/Settings/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="FastMenu" type="CheckButton" parent="Control/Settings/MarginContainer/VBoxContainer/HBoxContainer/Left"]
+[node name="FastMenu" type="CheckButton" parent="Control/SettingsSlider/Settings/MarginContainer/VBoxContainer/HBoxContainer/Left"]
 layout_mode = 2
 text = "Fast Menus:"
 
-[node name="DebugMode" type="CheckButton" parent="Control/Settings/MarginContainer/VBoxContainer/HBoxContainer/Left"]
+[node name="DebugMode" type="CheckButton" parent="Control/SettingsSlider/Settings/MarginContainer/VBoxContainer/HBoxContainer/Left"]
 layout_mode = 2
 text = "Debug Mode:"
 
-[node name="Right" type="VBoxContainer" parent="Control/Settings/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Right" type="VBoxContainer" parent="Control/SettingsSlider/Settings/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -223,13 +247,16 @@ theme_override_constants/margin_bottom = 4
 layout_mode = 2
 text = "slide_out"
 
-[connection signal="pressed" from="Control/Menu/MarginContainer/MainMenu/VBoxContainer/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Control/Menu/MarginContainer/MainMenu/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="Control/Menu/MarginContainer/MainMenu/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="Control/Menu/MarginContainer/PauseMenu/VBoxContainer/Resume" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Control/Menu/MarginContainer/PauseMenu/VBoxContainer/Menu" to="." method="_on_menu_pressed"]
-[connection signal="pressed" from="Control/Menu/MarginContainer/PauseMenu/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="Control/Menu/MarginContainer/PauseMenu/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
-[connection signal="toggled" from="Control/Settings/MarginContainer/VBoxContainer/HBoxContainer/Left/FastMenu" to="." method="_on_fast_menu_toggled"]
-[connection signal="toggled" from="Control/Settings/MarginContainer/VBoxContainer/HBoxContainer/Left/DebugMode" to="." method="_on_debug_mode_toggled"]
+[connection signal="pressed" from="Control/MenuSlider/Menu/MarginContainer/MainMenu/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Control/MenuSlider/Menu/MarginContainer/MainMenu/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Control/MenuSlider/Menu/MarginContainer/MainMenu/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Control/MenuSlider/Menu/MarginContainer/PauseMenu/VBoxContainer/Resume" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Control/MenuSlider/Menu/MarginContainer/PauseMenu/VBoxContainer/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="Control/MenuSlider/Menu/MarginContainer/PauseMenu/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Control/MenuSlider/Menu/MarginContainer/PauseMenu/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="toggled" from="Control/SettingsSlider/Settings/MarginContainer/VBoxContainer/HBoxContainer/Left/FastMenu" to="." method="_on_fast_menu_toggled"]
+[connection signal="toggled" from="Control/SettingsSlider/Settings/MarginContainer/VBoxContainer/HBoxContainer/Left/DebugMode" to="." method="_on_debug_mode_toggled"]
 [connection signal="pressed" from="TemplateDebug/Panel/MarginContainer/Button" to="TemplateDebug" method="_on_button_pressed"]
+
+[editable path="Control/MenuSlider"]
+[editable path="Control/SettingsSlider"]
