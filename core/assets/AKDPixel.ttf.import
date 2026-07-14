@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://xrfj7va7jpdd"
-path="res://.godot/imported/AKDPixel.ttf-bd31971904f6ddf6d9e2745f08c9dc33.fontdata"
+path="res://.godot/imported/AKDPixel.ttf-9b93920fbaf54ab5f55649871b101de5.fontdata"
 
 [deps]
 
-source_file="res://core/ui/assets/AKDPixel.ttf"
-dest_files=["res://.godot/imported/AKDPixel.ttf-bd31971904f6ddf6d9e2745f08c9dc33.fontdata"]
+source_file="res://core/assets/AKDPixel.ttf"
+dest_files=["res://.godot/imported/AKDPixel.ttf-9b93920fbaf54ab5f55649871b101de5.fontdata"]
 
 [params]
 

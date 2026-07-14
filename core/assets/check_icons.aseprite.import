@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2umu1mg7vkoj"
-path="res://.godot/imported/check_icons.aseprite-00fe174aecd9f6e3545a82f4d9a51b0e.ctex"
+path="res://.godot/imported/check_icons.aseprite-f2a8d50d877ba861b3c2192cc1e8fc90.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://core/ui/assets/check_icons.aseprite"
-dest_files=["res://.godot/imported/check_icons.aseprite-00fe174aecd9f6e3545a82f4d9a51b0e.ctex"]
+source_file="res://core/assets/check_icons.aseprite"
+dest_files=["res://.godot/imported/check_icons.aseprite-f2a8d50d877ba861b3c2192cc1e8fc90.ctex"]
 
 [params]
 

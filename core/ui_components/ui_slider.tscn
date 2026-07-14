@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c0ciovncc8jto"]
 
-[ext_resource type="Script" uid="uid://b5a2ola5tesnf" path="res://core/ui/ui_slider.gd" id="1_i7tix"]
+[ext_resource type="Script" uid="uid://b5a2ola5tesnf" path="res://core/ui_components/ui_slider.gd" id="1_i7tix"]
 
 [node name="UISlider" type="Control"]
 layout_mode = 3

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://2hb6n8firxba"]
 
-[ext_resource type="Theme" uid="uid://qrw5h14vf5pu" path="res://core/ui/simple_dark.tres" id="1_der1v"]
-[ext_resource type="Script" uid="uid://m4g6c4tbil6c" path="res://core/ui/toggle_text.gd" id="2_k34is"]
+[ext_resource type="Theme" uid="uid://qrw5h14vf5pu" path="res://core/assets/simple_dark.tres" id="1_der1v"]
+[ext_resource type="Script" uid="uid://m4g6c4tbil6c" path="res://core/ui_components/toggle_text.gd" id="2_k34is"]
 
 [node name="ToggleText" type="Button"]
 offset_right = 8.0

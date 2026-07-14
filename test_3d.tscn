@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://c218l6r6y7aeh"]
+
+[ext_resource type="Script" uid="uid://bn14i6yofgkyh" path="res://test_3d.gd" id="1_hkadm"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hkadm"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_0h7nl"]
+sky_material = SubResource("ProceduralSkyMaterial_hkadm")
+
+[sub_resource type="Environment" id="Environment_mer1j"]
+background_mode = 2
+sky = SubResource("Sky_0h7nl")
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hkadm"]
+albedo_color = Color(0.0846899, 0.0846899, 0.0846899, 1)
+
+[node name="test3d" type="Node3D"]
+script = ExtResource("1_hkadm")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mer1j")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, 2, 2, 2)
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+size = Vector3(2, 0.1, 2)
+material = SubResource("StandardMaterial3D_hkadm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_left = 5.0
+offset_top = 16.0
+offset_right = 39.0
+offset_bottom = 38.0
+text = "text"
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.402896, 0)
+billboard = 1
+text = "debug"
+
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]

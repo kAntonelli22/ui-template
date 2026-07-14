@@ -74,7 +74,6 @@ func move_to_next_point() -> bool:
    if next >= line.get_point_count(): next = 0                                   # > get next point
    current_point = next                                                          # |
    current_position = line.get_point_position(current_point)
-   if debug: print(self.name, " sliding ", node.name, " to ", current_position)
    
    if instant:
       position = current_position
