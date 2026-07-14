@@ -43,13 +43,10 @@ text = "debug"
 autowrap_mode = 1
 text_overrun_behavior = 3
 
-[node name="MenuSlider" parent="Control" node_paths=PackedStringArray("node") instance=ExtResource("3_vkava")]
+[node name="MenuSlider" parent="Control" instance=ExtResource("3_vkava")]
 layout_mode = 1
-node = NodePath("Menu")
-debug = false
 
 [node name="Line2D" parent="Control/MenuSlider" index="0"]
-visible = false
 points = PackedVector2Array(0, 0, -94, 0)
 
 [node name="Menu" type="Panel" parent="Control/MenuSlider"]
@@ -155,7 +152,14 @@ theme_override_font_sizes/font_size = 24
 text = "Quit"
 alignment = 0
 
-[node name="SettingsSlider" parent="Control" node_paths=PackedStringArray("node") instance=ExtResource("3_vkava")]
+[node name="Panel" type="Panel" parent="Control/MenuSlider"]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 40.0
+offset_right = 134.0
+offset_bottom = 80.0
+
+[node name="SettingsSlider" parent="Control" instance=ExtResource("3_vkava")]
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
@@ -164,7 +168,6 @@ offset_left = 320.0
 offset_right = 320.0
 grow_horizontal = 1
 grow_vertical = 1
-node = NodePath("Settings")
 
 [node name="Line2D" parent="Control/SettingsSlider" index="0"]
 points = PackedVector2Array(320, 0, 94, 0)

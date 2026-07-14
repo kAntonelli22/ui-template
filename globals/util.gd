@@ -21,28 +21,6 @@ func _ready() -> void:
       if key_value.length() > left_padding:
          left_padding = key_value.length()
 
-#FIXME needs a better name than tween text
-func tween_text(text: String, position: Vector2, duration: float = 0.5, settings: LabelSettings = LabelSettings.new(), offset: Vector2 = Vector2(0, 40)):
-   var label = Label.new()
-   label.text = text
-   label.z_index = 5
-   label.label_settings = settings
-   label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-   call_deferred("add_child", label)
-   
-   await label.resized
-   label.set_global_position(position - label.size/2)
-   label.pivot_offset = label.size/2
-   var tween: Tween = get_tree().create_tween()
-   tween.set_parallel(true)
-   tween.tween_property(label, "position", label.position - offset, duration).set_ease(Tween.EASE_IN)
-   tween.tween_property(label, "modulate", Color.TRANSPARENT, duration*3/4).set_delay(duration/4).set_ease(Tween.EASE_IN)
-   tween.tween_property(label, "scale", Vector2(0.5, 0.5), duration*3/4).set_delay(duration/4).set_ease(Tween.EASE_IN)
-   
-   await tween.finished
-   remove_child(label)
-   label.queue_free()
-
 #HACK bbcode in text causes formatting to be off
 func print(args: Array, caller: String = ""):
    var stack = get_stack()

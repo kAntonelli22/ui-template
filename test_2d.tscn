@@ -21,7 +21,7 @@ pivot_offset = Vector2(25, 15)
 text = "text"
 horizontal_alignment = 1
 
-[node name="PanelSlider" parent="." node_paths=PackedStringArray("node") instance=ExtResource("1_l3v6d")]
+[node name="PanelSlider" parent="." instance=ExtResource("1_l3v6d")]
 custom_minimum_size = Vector2(25, 25)
 anchors_preset = 0
 anchor_right = 0.0
@@ -30,7 +30,6 @@ offset_right = 25.0
 offset_bottom = 25.0
 grow_horizontal = 1
 grow_vertical = 1
-node = NodePath("Panel")
 
 [node name="Line2D" parent="PanelSlider" index="0"]
 points = PackedVector2Array(0, 0, 280, 0)
