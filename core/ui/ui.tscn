@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dbuo380y7olnq"]
+[gd_scene load_steps=5 format=3 uid="uid://dbuo380y7olnq"]
 
 [ext_resource type="Script" uid="uid://cqul25inxog7u" path="res://core/ui/ui.gd" id="1_wexb5"]
-[ext_resource type="Script" uid="uid://bcoc3jlisr6dn" path="res://core/ui/template_debug.gd" id="3_5yis2"]
 [ext_resource type="Theme" uid="uid://qrw5h14vf5pu" path="res://core/ui/simple_dark.tres" id="3_dydw8"]
 [ext_resource type="PackedScene" uid="uid://c0ciovncc8jto" path="res://core/ui/ui_slider.tscn" id="3_vkava"]
 
@@ -216,35 +215,6 @@ text = "Debug Mode:"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TemplateDebug" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-theme = ExtResource("3_dydw8")
-script = ExtResource("3_5yis2")
-
-[node name="Panel" type="Panel" parent="TemplateDebug"]
-layout_mode = 0
-offset_left = 94.0
-offset_top = 140.0
-offset_right = 254.0
-offset_bottom = 180.0
-
-[node name="MarginContainer" type="MarginContainer" parent="TemplateDebug/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="Button" type="Button" parent="TemplateDebug/Panel/MarginContainer"]
-layout_mode = 2
-text = "slide_out"
-
 [connection signal="pressed" from="Control/MenuSlider/Menu/MarginContainer/MainMenu/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Control/MenuSlider/Menu/MarginContainer/MainMenu/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Control/MenuSlider/Menu/MarginContainer/MainMenu/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
@@ -254,7 +224,6 @@ text = "slide_out"
 [connection signal="pressed" from="Control/MenuSlider/Menu/MarginContainer/PauseMenu/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="toggled" from="Control/SettingsSlider/Settings/MarginContainer/VBoxContainer/HBoxContainer/Left/FastMenu" to="." method="_on_fast_menu_toggled"]
 [connection signal="toggled" from="Control/SettingsSlider/Settings/MarginContainer/VBoxContainer/HBoxContainer/Left/DebugMode" to="." method="_on_debug_mode_toggled"]
-[connection signal="pressed" from="TemplateDebug/Panel/MarginContainer/Button" to="TemplateDebug" method="_on_button_pressed"]
 
 [editable path="Control/MenuSlider"]
 [editable path="Control/SettingsSlider"]

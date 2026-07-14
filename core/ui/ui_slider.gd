@@ -77,7 +77,7 @@ func move_to_next_point() -> bool:
    if debug: print(self.name, " sliding ", node.name, " to ", current_position)
    
    if instant:
-      node.position = current_position
+      position = current_position
    else:
       in_transition = true
       var tween = get_tree().create_tween()

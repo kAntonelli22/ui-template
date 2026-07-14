@@ -3,8 +3,13 @@ extends CanvasLayer
 
 @onready var debug_panel: Panel = $Control/Debug
 @onready var debug_label: Label = $Control/Debug/Label
-var panels: Dictionary[String, Panel]
-var menu_tabs: Dictionary[String, Control]
+
+@onready var ui_sliders: Dictionary[String, UISlider] = {
+   "menu": $Control/MenuSlider,
+   "settings": $Control/SettingsSlider
+}
+@onready var main_menu: Control = $Control/MenuSlider/Menu/MarginContainer/MainMenu
+@onready var pause_menu: Control = $Control/MenuSlider/Menu/MarginContainer/PauseMenu
 
 var buttons: Dictionary[String, Button]
 
@@ -13,9 +18,6 @@ var settings: Dictionary[String, Variant] = {
    "debug_mode": false,
    "fast_menu": false
 }
-
-func add_button(button: Button):
-   buttons.set(button.name, button)
 
 func _ready() -> void:
    debug(["game paused: ", get_tree().paused])
@@ -27,57 +29,41 @@ func debug(array: Array):
    for item in array:
       debug_label.text += str(item)
 
-func reset():  #TODO reset the ui
-   pass
+func add_button(button: Button):
+   buttons.set(button.name, button)
 
-func load_menu_state():    #TODO load a menu combo
-   pass
-
-func pause_game():      #FIXME uses old panel system
-   if panels.Menu.visible and get_tree().paused == false:
-      debug(["game paused: ", !get_tree().paused])
-      Util.print(["menu onscreen, double slide and pause"])
+func pause_game():
+   if $Control/MenuSlider.current_point == 1:
+      main_menu.hide()
+      pause_menu.show()
+      ui_sliders.menu.move_to_next_point()
       get_tree().paused = true
-      #await slide_panel(panels.Menu, false, true)
-      #change_tab(menu_tabs.PauseMenu)
-      #await slide_panel(panels.Menu, true, true)
-   elif !panels.Menu.visible and get_tree().paused == false:
-      debug(["game paused: ", !get_tree().paused])
-      Util.print(["menu offscreen, single slide and pause"])
-      get_tree().paused = true
-      #change_tab(menu_tabs.PauseMenu)
-      #await slide_panel(panels.Menu, true, true)
-   elif panels.Menu.visible and get_tree().paused == true:
-      debug(["game paused: ", !get_tree().paused])
-      Util.print(["menu onscreen, single slide and pause"])
-      get_tree().paused = false
-      #await slide_panel(panels.Menu, false, true)
 
 func _unhandled_input(_event: InputEvent) -> void:
    if Input.is_action_just_pressed("pause"):
-      Util.print(["esc pressed"])
       pause_game()
 
 func _on_play_pressed() -> void:
-   $Control/MenuSlider.move_to_next_point()
-   SignalBus.emit_signal("start")
+   ui_sliders.menu.move_to_next_point()
 
 func _on_settings_pressed() -> void:
-   var success: bool = await $Control/SettingsSlider.move_to_next_point()
+   var success: bool = await ui_sliders.settings.move_to_next_point()
    if !success: buttons.Settings.button_pressed = !buttons.Settings.button_pressed
-   #if !panels.Settings.visible: await slide_panel(panels.Settings, false, true)
-   #else: await slide_panel(panels.Settings, true, true)
 
 func _on_menu_pressed() -> void:
-   get_tree().paused = false     # FIXME old
-   #change_tab(menu_tabs.MainMenu)
+   #get_tree().paused = false
+   await ui_sliders.menu.move_to_next_point()
+   pause_menu.hide()
+   main_menu.show()
 
 func _on_quit_pressed() -> void:
-   SignalBus.emit_signal("quit")
+   get_tree().quit()
 
 # ---- # Settings
 func _on_fast_menu_toggled(toggled_on: bool) -> void:
-   settings.fast_menu = toggled_on  #FIXME does not change UI Sliders
+   settings.fast_menu = toggled_on
+   for ui_slider in ui_sliders.keys():
+      ui_sliders[ui_slider].instant = toggled_on
 
 func _on_debug_mode_toggled(toggled_on: bool) -> void:
    settings.debug_mode = toggled_on
