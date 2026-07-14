@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c0ciovncc8jto"]
 
-[ext_resource type="Script" uid="uid://b5a2ola5tesnf" path="res://ui/ui_slider.gd" id="1_i7tix"]
+[ext_resource type="Script" uid="uid://b5a2ola5tesnf" path="res://core/ui/ui_slider.gd" id="1_i7tix"]
 
 [node name="UISlider" type="Control"]
 layout_mode = 3
@@ -10,7 +10,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_i7tix")
-lock_during_transition = null
 
 [node name="Line2D" type="Line2D" parent="."]
 top_level = true

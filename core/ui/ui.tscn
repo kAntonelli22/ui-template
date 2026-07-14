@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://dbuo380y7olnq"]
 
-[ext_resource type="Script" uid="uid://cqul25inxog7u" path="res://ui/ui.gd" id="1_wexb5"]
-[ext_resource type="Script" uid="uid://bcoc3jlisr6dn" path="res://ui/template_debug.gd" id="3_5yis2"]
-[ext_resource type="Theme" uid="uid://qrw5h14vf5pu" path="res://ui/simple_dark.tres" id="3_dydw8"]
-[ext_resource type="PackedScene" uid="uid://c0ciovncc8jto" path="res://ui/ui_slider.tscn" id="3_vkava"]
+[ext_resource type="Script" uid="uid://cqul25inxog7u" path="res://core/ui/ui.gd" id="1_wexb5"]
+[ext_resource type="Script" uid="uid://bcoc3jlisr6dn" path="res://core/ui/template_debug.gd" id="3_5yis2"]
+[ext_resource type="Theme" uid="uid://qrw5h14vf5pu" path="res://core/ui/simple_dark.tres" id="3_dydw8"]
+[ext_resource type="PackedScene" uid="uid://c0ciovncc8jto" path="res://core/ui/ui_slider.tscn" id="3_vkava"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vaojm"]
 bg_color = Color(0.0823529, 0.0823529, 0.101961, 0.235294)
@@ -47,7 +47,6 @@ text_overrun_behavior = 3
 [node name="MenuSlider" parent="Control" node_paths=PackedStringArray("node") instance=ExtResource("3_vkava")]
 layout_mode = 1
 node = NodePath("Menu")
-lock_during_transition = true
 debug = false
 
 [node name="Line2D" parent="Control/MenuSlider" index="0"]
@@ -167,7 +166,6 @@ offset_right = 320.0
 grow_horizontal = 1
 grow_vertical = 1
 node = NodePath("Settings")
-lock_during_transition = true
 
 [node name="Line2D" parent="Control/SettingsSlider" index="0"]
 points = PackedVector2Array(320, 0, 94, 0)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dkc88ds5asroe"]
 
-[ext_resource type="PackedScene" uid="uid://c0ciovncc8jto" path="res://ui/ui_slider.tscn" id="1_37kl0"]
-[ext_resource type="Theme" uid="uid://qrw5h14vf5pu" path="res://ui/simple_dark.tres" id="2_8uh7m"]
+[ext_resource type="PackedScene" uid="uid://c0ciovncc8jto" path="res://core/ui/ui_slider.tscn" id="1_37kl0"]
+[ext_resource type="Theme" uid="uid://qrw5h14vf5pu" path="res://core/ui/simple_dark.tres" id="2_8uh7m"]
 
 [sub_resource type="GDScript" id="GDScript_mf4mk"]
 script/source = "extends Node2D
@@ -40,7 +40,6 @@ offset_bottom = 25.0
 grow_horizontal = 1
 grow_vertical = 1
 node = NodePath("Panel")
-lock_during_transition = true
 
 [node name="Line2D" parent="PanelSlider" index="0"]
 points = PackedVector2Array(0, 0, 280, 0)

@@ -21,9 +21,9 @@ aseprite_executable_path="F:/aseprite/aseprite.exe"
 
 [autoload]
 
-Global="*res://globals/global.gd"
-Util="*res://globals/util.gd"
-SignalBus="*res://globals/signal_bus.gd"
+Global="*res://core/globals/global.gd"
+Util="*res://core/globals/util.gd"
+SignalBus="*res://core/globals/signal_bus.gd"
 
 [debug]
 
