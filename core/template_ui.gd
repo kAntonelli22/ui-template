@@ -1,4 +1,4 @@
-class_name UI
+class_name TemplateUI
 extends CanvasLayer
 
 @onready var debug_panel: Panel = $Control/Debug
