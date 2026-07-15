@@ -1,22 +1,22 @@
 [gd_scene format=3 uid="uid://dbuo380y7olnq"]
 
-[ext_resource type="Script" uid="uid://cqul25inxog7u" path="res://core/template_ui.gd" id="1_wexb5"]
-[ext_resource type="Theme" uid="uid://qrw5h14vf5pu" path="res://core/assets/simple_dark.tres" id="3_dydw8"]
-[ext_resource type="PackedScene" uid="uid://c0ciovncc8jto" path="res://core/ui_components/ui_slider.tscn" id="3_vkava"]
+[ext_resource type="Script" uid="uid://cqul25inxog7u" path="res://core/template_ui.gd" id="1_cfw8d"]
+[ext_resource type="Theme" uid="uid://qrw5h14vf5pu" path="res://core/assets/simple_dark.tres" id="2_00bhe"]
+[ext_resource type="PackedScene" uid="uid://c0ciovncc8jto" path="res://core/ui_components/ui_slider.tscn" id="3_o7wpd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vaojm"]
 bg_color = Color(0.0823529, 0.0823529, 0.101961, 0.235294)
 
-[node name="UI" type="CanvasLayer" unique_id=1314331904]
+[node name="TemplateUI" type="CanvasLayer" unique_id=1314331904]
 process_mode = 3
-script = ExtResource("1_wexb5")
+script = ExtResource("1_cfw8d")
 
 [node name="Control" type="Control" parent="." unique_id=1648814048]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme = ExtResource("3_dydw8")
+theme = ExtResource("2_00bhe")
 
 [node name="Debug" type="Panel" parent="Control" unique_id=40749103]
 layout_mode = 1
@@ -28,10 +28,11 @@ offset_right = 280.0
 offset_bottom = 75.0
 grow_horizontal = 0
 size_flags_horizontal = 0
-theme = ExtResource("3_dydw8")
+theme = ExtResource("2_00bhe")
 theme_override_styles/panel = SubResource("StyleBoxFlat_vaojm")
 
 [node name="Label" type="Label" parent="Control/Debug" unique_id=237833954]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,7 +44,7 @@ text = "debug"
 autowrap_mode = 1
 text_overrun_behavior = 3
 
-[node name="MenuSlider" parent="Control" unique_id=1562485923 instance=ExtResource("3_vkava")]
+[node name="MenuSlider" parent="Control" unique_id=1562485923 instance=ExtResource("3_o7wpd")]
 layout_mode = 1
 
 [node name="Line2D" parent="Control/MenuSlider" index="0"]
@@ -159,7 +160,7 @@ offset_top = 40.0
 offset_right = 134.0
 offset_bottom = 80.0
 
-[node name="SettingsSlider" parent="Control" unique_id=1478023036 instance=ExtResource("3_vkava")]
+[node name="SettingsSlider" parent="Control" unique_id=1478023036 instance=ExtResource("3_o7wpd")]
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
