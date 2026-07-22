@@ -35,7 +35,6 @@ func _init(
    p_gap_width: float, p_text: String, p_font, p_font_size,
    colors: Array[Color], p_count: int = 64, p_outline_width: float = 0.0
 ) -> void:
-   print("new button made")
    index = p_index
    origin = p_origin
    radius = p_radius

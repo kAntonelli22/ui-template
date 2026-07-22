@@ -140,9 +140,7 @@ func _update_buttons() -> void:
       return
    
    if button_nodes.size() != buttons.size():
-      for b in button_nodes: b.free()
-      button_nodes = []
-      _ready()
+      _build_buttons()
       return
    
    var pie_slice = max_rotation / buttons.size()
@@ -158,10 +156,10 @@ func _update_buttons() -> void:
       )
    queue_redraw()
 
-func _ready() -> void:
-   if !Engine.is_editor_hint():
-      if not mouse_exited.is_connected(_clear_menu): mouse_exited.connect(_clear_menu)
-   
+func _build_buttons() -> void:
+   for b in button_nodes: b.free()
+   button_nodes = []
+      
    var pie_slice = max_rotation / buttons.size()
    var rot = start_angle
    for i in buttons.size():
@@ -178,7 +176,12 @@ func _ready() -> void:
       
       add_child(wedge_button)
       button_nodes.append(wedge_button)
+
+func _ready() -> void:
+   if !Engine.is_editor_hint():
+      if not mouse_exited.is_connected(_clear_menu): mouse_exited.connect(_clear_menu)
    
+   if button_nodes.is_empty(): _build_buttons()
    queue_redraw()
 
 func _draw() -> void:
