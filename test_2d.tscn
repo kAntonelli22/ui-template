@@ -79,12 +79,13 @@ outline_width = 5.0
 max_rotation = 3.9269908169872414
 gap_width = 5.0
 start_angle = -0.7853981633974483
-animated = true
 color = Color(0.0823529, 0.0823529, 0.101961, 1)
 hover_color = Color(0.160784, 0.160784, 0.2, 1)
 active_color = Color(0.243137, 0.243137, 0.301961, 1)
 outline_color = Color(0.8, 0.8, 1, 1)
 font = SubResource("FontFile_lx6l1")
+animated = true
+animate_max_rotation = false
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 

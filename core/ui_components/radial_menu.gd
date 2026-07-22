@@ -6,15 +6,15 @@ var show_menu: bool = false
 
 @export_group("Values")
 @export var origin: Vector2 = Vector2.ZERO:     ## The center of the RadialMenu.
-   set(value): origin = value; _ready()
+   set(value): origin = value; _calc_geometry()
 @export var center_radius: float:               ## The radius of the center circle.
-   set(value): center_radius = value; _ready()
+   set(value): center_radius = value; _calc_geometry()
 @export var center_gap: float:                  ## The gap between the center circle and buttons.
-   set(value): center_gap = value; _ready()
+   set(value): center_gap = value; _calc_geometry()
 @export var arc_width: float = 75.0:            ## The width of each button.
-   set(value): arc_width = value; _ready()
+   set(value): arc_width = value; _calc_geometry()
 @export var outline_width: float = 0.0:         ## The width of the RadialMenu and button outlines.
-   set(value): outline_width = value; _ready()
+   set(value): outline_width = value; _calc_geometry()
 
 var bounding_rect: Rect2
 var radius: float
@@ -22,33 +22,33 @@ var corrected_origin: Vector2
 
 ## The total rotation to be divided between buttons.
 @export_custom(PROPERTY_HINT_RANGE, "0,360,0.1,radians_as_degrees") var max_rotation: float = 2 * PI:
-   set(value): max_rotation = value; _ready()
+   set(value): max_rotation = value; _update_buttons()
 ## The gap between each button.
 @export var gap_width: float = 0.0:
-   set(value): gap_width = value; _ready()
+   set(value): gap_width = value; _update_buttons()
 ## The rotation of the first button.
 @export_custom(PROPERTY_HINT_RANGE, "-360,360,0.1,radians_as_degrees") var start_angle: float:
-   set(value): start_angle = value; _ready()
+   set(value): start_angle = value; _update_buttons()
 
 @export_group("Style")
 @export var color: Color:              ## The color used for the menu and buttons.
-   set(value): color = value; colors = [color, hover_color, active_color, outline_color]; _ready()
+   set(value): color = value; colors = [color, hover_color, active_color, outline_color]; queue_redraw()
 @export var hover_color: Color:        ## The color used for the menu and buttons when the mouse is over them.
-   set(value): hover_color = value; colors = [color, hover_color, active_color, outline_color]; _ready()
+   set(value): hover_color = value; colors = [color, hover_color, active_color, outline_color]; queue_redraw()
 @export var active_color: Color:       ## The color used for the menu and buttons when the mouse clicks on them.
-   set(value): active_color = value; colors = [color, hover_color, active_color, outline_color]; _ready()
+   set(value): active_color = value; colors = [color, hover_color, active_color, outline_color]; queue_redraw()
 @export var outline_color: Color:      ## The color used for the menu and button outline.
-   set(value): outline_color = value; colors = [color, hover_color, active_color, outline_color]; _ready()
+   set(value): outline_color = value; colors = [color, hover_color, active_color, outline_color]; queue_redraw()
 var colors: Array[Color] = [color, hover_color, active_color, outline_color]
 
 @export_group("Buttons")
 #@export var hold_open: bool = true
 @export var font: Font:                ## The font used by the buttons.
-   set(value): font = value; _ready()
+   set(value): font = value; _update_buttons()
 @export var font_size: int = 16:       ## The font size of the buttons.
-   set(value): font_size = value; _ready()
+   set(value): font_size = value; _update_buttons()
 @export var buttons: Array[String] = ["Button1", "Button2", "Button3", "Button4", "Button5"]:
-   set(value): buttons = value; _ready()
+   set(value): buttons = value; _update_buttons()
 
 @export_group("Animation")
 @export var animated: bool = false              ## If [code]true[/code] the menu will open using tweens
@@ -56,15 +56,12 @@ var colors: Array[Color] = [color, hover_color, active_color, outline_color]
 
 var open_tween: Tween
 var close_tween: Tween
-var anim_center: float = center_radius
-var anim_arc: float = arc_width
-var anim_max: float = max_rotation
 
-var open_final_center
-var open_final_arc
-var open_final_max
-var close_center
-var close_arc
+var open_final_center: float
+var open_final_arc: float
+var open_final_max: float
+var close_center: float
+var close_arc: float
 
 var button_nodes: Array[WedgeButton] = []
 
@@ -89,7 +86,7 @@ func open_menu_at(pos: Vector2):    ## Opens the RadialMenu with [param pos] as 
          arc_width = open_final_arc if open_final_arc else arc_width
          max_rotation = open_final_max if open_final_max else max_rotation
          open_tween.kill()
-         close_tween.kill()
+      if close_tween: close_tween.kill()
       open_tween = create_tween()
       open_final_center = center_radius
       open_final_arc = arc_width
@@ -109,10 +106,10 @@ func open_menu_at(pos: Vector2):    ## Opens the RadialMenu with [param pos] as 
 func close_menu():                  ## Hides the menu.
    emit_signal("radial_closing")
    if animated:
+      if open_tween: open_tween.kill()
       if close_tween:
          center_radius = close_center if close_center else center_radius
          arc_width = close_arc if close_arc else arc_width
-         open_tween.kill()
          close_tween.kill()
       close_tween = create_tween()
       close_center = center_radius
@@ -125,25 +122,45 @@ func close_menu():                  ## Hides the menu.
    hide()
    emit_signal("radial_closed")
 
-
-func _ready() -> void:
-   if !Engine.is_editor_hint():
-      if !is_connected("mouse_exited", _clear_menu): connect("mouse_exited", _clear_menu)
-   
-   anim_center = center_radius
-   anim_arc = arc_width
-   anim_max = max_rotation
+func _calc_geometry() -> void:
    radius = arc_width + center_radius + center_gap
    bounding_rect = Rect2(Vector2(origin.x - radius, origin.y - radius), Vector2(2 * radius, 2 * radius))
    position = bounding_rect.position
    size = bounding_rect.size
    corrected_origin = origin - position
+   for b in button_nodes:
+      b.radius = center_radius + center_gap
+      b.width = arc_width
+      b.origin = corrected_origin
+   queue_redraw()
+
+func _update_buttons() -> void:
    if font == null:
       push_warning("Provide a font before using the RadialMenu")
       return
    
-   for child in get_children(): child.queue_free()
-   button_nodes = []
+   if button_nodes.size() != buttons.size():
+      for b in button_nodes: b.free()
+      button_nodes = []
+      _ready()
+      return
+   
+   var pie_slice = max_rotation / buttons.size()
+   var rot = start_angle
+   
+   for i in button_nodes.size():
+      var start = rot
+      rot += pie_slice
+      var end = rot
+      button_nodes[i].update(
+         i, corrected_origin, center_radius + center_gap, arc_width, start, end,
+         gap_width, buttons[i], font, font_size, colors, 64, outline_width
+      )
+   queue_redraw()
+
+func _ready() -> void:
+   if !Engine.is_editor_hint():
+      if not mouse_exited.is_connected(_clear_menu): mouse_exited.connect(_clear_menu)
    
    var pie_slice = max_rotation / buttons.size()
    var rot = start_angle
@@ -152,19 +169,22 @@ func _ready() -> void:
       rot += pie_slice
       var end = rot
       var wedge_button = WedgeButton.new(
-         i, corrected_origin, center_radius + center_gap, arc_width, start, end, gap_width, buttons[i], font, font_size, colors, 64, outline_width
+         i, corrected_origin, center_radius + center_gap, arc_width, start, end,
+         gap_width, buttons[i], font, font_size, colors, 64, outline_width
       )
       
-      wedge_button.connect("hovered", _button_hovered)
-      wedge_button.connect("pressed", _button_pressed)
-
+      wedge_button.hovered.connect(_button_hovered)
+      wedge_button.pressed.connect(_button_pressed)
+      
       add_child(wedge_button)
       button_nodes.append(wedge_button)
+   
    queue_redraw()
 
 func _draw() -> void:
    if outline_width != 0.0: draw_circle(corrected_origin, center_radius + outline_width, outline_color)
    draw_circle(corrected_origin, center_radius, color)
+   for b in button_nodes: b.queue_redraw()
 
 func _gui_input(event: InputEvent) -> void:
    if !Geometry2D.is_point_in_circle(event.position, corrected_origin, radius):
@@ -175,7 +195,7 @@ func _gui_input(event: InputEvent) -> void:
       if Geometry2D.is_point_in_polygon(event.position, button.polygon):
          button.handle_event(event)
       else: button.clear_hover()
-      queue_redraw()
+   queue_redraw()
 
 func _button_hovered(index: int): emit_signal("button_hovered", index)
 func _button_pressed(index: int): emit_signal("button_pressed", index)
