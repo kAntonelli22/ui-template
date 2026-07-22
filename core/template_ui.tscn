@@ -153,13 +153,6 @@ theme_override_font_sizes/font_size = 24
 text = "Quit"
 alignment = 0
 
-[node name="Panel" type="Panel" parent="Control/MenuSlider" unique_id=1059766286]
-layout_mode = 0
-offset_left = 94.0
-offset_top = 40.0
-offset_right = 134.0
-offset_bottom = 80.0
-
 [node name="SettingsSlider" parent="Control" unique_id=1478023036 instance=ExtResource("3_o7wpd")]
 layout_mode = 0
 anchors_preset = 0

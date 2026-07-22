@@ -1,27 +1,47 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkc88ds5asroe"]
+[gd_scene format=3 uid="uid://dkc88ds5asroe"]
 
 [ext_resource type="Script" uid="uid://bxhaip4cr0wxq" path="res://test_2d.gd" id="1_g44b6"]
 [ext_resource type="PackedScene" uid="uid://c0ciovncc8jto" path="res://core/ui_components/ui_slider.tscn" id="1_l3v6d"]
 [ext_resource type="Theme" uid="uid://qrw5h14vf5pu" path="res://core/assets/simple_dark.tres" id="2_g44b6"]
+[ext_resource type="PackedScene" uid="uid://dx7p623fotr8f" path="res://core/ui_components/radial_menu.tscn" id="4_wwpr3"]
 
-[node name="test2d" type="Node2D"]
+[sub_resource type="FontFile" id="FontFile_lx6l1"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[node name="test2d" type="Node2D" unique_id=770986772]
 script = ExtResource("1_g44b6")
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="." unique_id=1505127336]
 offset_left = 138.0
 offset_top = 87.0
 offset_right = 204.0
 offset_bottom = 141.0
 text = "test"
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1203023326]
 offset_right = 50.0
 offset_bottom = 30.0
 pivot_offset = Vector2(25, 15)
 text = "text"
 horizontal_alignment = 1
 
-[node name="PanelSlider" parent="." instance=ExtResource("1_l3v6d")]
+[node name="PanelSlider" parent="." unique_id=1603361314 instance=ExtResource("1_l3v6d")]
 custom_minimum_size = Vector2(25, 25)
 anchors_preset = 0
 anchor_right = 0.0
@@ -34,11 +54,37 @@ grow_vertical = 1
 [node name="Line2D" parent="PanelSlider" index="0"]
 points = PackedVector2Array(0, 0, 280, 0)
 
-[node name="Panel" type="Panel" parent="PanelSlider"]
+[node name="Panel" type="Panel" parent="PanelSlider" unique_id=1198997156]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 74.0
 theme = ExtResource("2_g44b6")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2140484293]
+
+[node name="RadialMenu" parent="CanvasLayer" unique_id=819207360 instance=ExtResource("4_wwpr3")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -115.0
+offset_top = -115.0
+offset_right = 115.0
+offset_bottom = 115.0
+grow_horizontal = 1
+grow_vertical = 1
+center_radius = 35.0
+center_gap = 20.0
+arc_width = 60.0
+outline_width = 5.0
+max_rotation = 3.9269908169872414
+gap_width = 5.0
+start_angle = -0.7853981633974483
+animated = true
+color = Color(0.0823529, 0.0823529, 0.101961, 1)
+hover_color = Color(0.160784, 0.160784, 0.2, 1)
+active_color = Color(0.243137, 0.243137, 0.301961, 1)
+outline_color = Color(0.8, 0.8, 1, 1)
+font = SubResource("FontFile_lx6l1")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 
