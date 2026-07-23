@@ -48,7 +48,7 @@ var colors: Array[Color] = [color, hover_color, active_color, outline_color]
 @export var font_size: int = 16:       ## The font size of the buttons.
    set(value): font_size = value; _update_buttons()
 @export var buttons: Dictionary[String, bool] = {"Button1": true, "Button2": true, "Button3": false, "Button4": true}:
-   set(value): buttons = value; _update_buttons(); print("setting")
+   set(value): buttons = value; _update_buttons()
 
 @export_group("Animation")
 @export var animated: bool = false              ## If [code]true[/code] the menu will open using tweens
@@ -155,10 +155,8 @@ func _update_buttons() -> void:
    var rot = start_angle
    
    for i in button_nodes.size():
-      print("show? %s" % buttons[buttons.keys()[i]])
-      if !buttons[buttons.keys()[i]]: button_nodes[i].hide(); print("hiding"); continue        # do not draw buttons with visibility false
+      if !buttons[buttons.keys()[i]]: button_nodes[i].hide(); continue        # do not draw buttons with visibility false
       button_nodes[i].show()
-      print("showing")
       var start = rot
       rot += pie_slice
       var end = rot
@@ -182,14 +180,14 @@ func _build_buttons() -> void:
             gap_width, buttons.keys()[i], font, font_size, colors, 64, outline_width
          )
          wedge_button.hide()
-         continue        # do not draw buttons with visibility false
-      var start = rot
-      rot += pie_slice
-      var end = rot
-      wedge_button = WedgeButton.new(
-         i, corrected_origin, center_radius + center_gap, arc_width, start, end,
-         gap_width, buttons.keys()[i], font, font_size, colors, 64, outline_width
-      )
+      else:
+         var start = rot
+         rot += pie_slice
+         var end = rot
+         wedge_button = WedgeButton.new(
+            i, corrected_origin, center_radius + center_gap, arc_width, start, end,
+            gap_width, buttons.keys()[i], font, font_size, colors, 64, outline_width
+         )
       
       wedge_button.hovered.connect(_button_hovered)
       wedge_button.pressed.connect(_button_pressed)
