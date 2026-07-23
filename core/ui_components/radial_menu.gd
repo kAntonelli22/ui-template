@@ -122,12 +122,16 @@ func close_menu():                  ## Hides the menu.
    hide()
    emit_signal("radial_closed")
 
-func show_buttons(a: Array[String]) -> void:
-   for b in a: buttons[b] = true
+func show_buttons(array: Array[String]) -> void:    ## Changes the visibility of the buttons in [param array] to [code]true[/code].
+   for b in array:
+      if buttons.has(b): buttons[b] = true
+      else: printerr("%s does not have '%s'" % [name, b])
    _update_buttons()
 
-func hide_buttons(a: Array[String]) -> void:
-   for b in a: buttons[b] = false
+func hide_buttons(array: Array[String]) -> void:   ## Changes the visibility of the buttons in [param array] to [code]false[/code].
+   for b in array:
+      if buttons.has(b): buttons[b] = false
+      else: printerr("%s does not have '%s'" % [name, b])
    _update_buttons()
 
 func _calc_geometry() -> void:
@@ -214,6 +218,7 @@ func _gui_input(event: InputEvent) -> void:
       return
    for button in button_nodes:
       if Geometry2D.is_point_in_polygon(event.position, button.polygon):
+         accept_event()
          button.handle_event(event)
       else: button.clear_hover()
    queue_redraw()
