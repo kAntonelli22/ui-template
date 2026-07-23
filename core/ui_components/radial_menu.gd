@@ -47,8 +47,8 @@ var colors: Array[Color] = [color, hover_color, active_color, outline_color]
    set(value): font = value; _update_buttons()
 @export var font_size: int = 16:       ## The font size of the buttons.
    set(value): font_size = value; _update_buttons()
-@export var buttons: Array[String] = ["Button1", "Button2", "Button3", "Button4", "Button5"]:
-   set(value): buttons = value; _update_buttons()
+@export var buttons: Dictionary[String, bool] = {"Button1": true, "Button2": true, "Button3": false, "Button4": true}:
+   set(value): buttons = value; _update_buttons(); print("setting")
 
 @export_group("Animation")
 @export var animated: bool = false              ## If [code]true[/code] the menu will open using tweens
@@ -122,6 +122,14 @@ func close_menu():                  ## Hides the menu.
    hide()
    emit_signal("radial_closed")
 
+func show_buttons(a: Array[String]) -> void:
+   for b in a: buttons[b] = true
+   _update_buttons()
+
+func hide_buttons(a: Array[String]) -> void:
+   for b in a: buttons[b] = false
+   _update_buttons()
+
 func _calc_geometry() -> void:
    radius = arc_width + center_radius + center_gap
    bounding_rect = Rect2(Vector2(origin.x - radius, origin.y - radius), Vector2(2 * radius, 2 * radius))
@@ -147,12 +155,16 @@ func _update_buttons() -> void:
    var rot = start_angle
    
    for i in button_nodes.size():
+      print("show? %s" % buttons[buttons.keys()[i]])
+      if !buttons[buttons.keys()[i]]: button_nodes[i].hide(); print("hiding"); continue        # do not draw buttons with visibility false
+      button_nodes[i].show()
+      print("showing")
       var start = rot
       rot += pie_slice
       var end = rot
       button_nodes[i].update(
          i, corrected_origin, center_radius + center_gap, arc_width, start, end,
-         gap_width, buttons[i], font, font_size, colors, 64, outline_width
+         gap_width, buttons.keys()[i], font, font_size, colors, 64, outline_width
       )
    queue_redraw()
 
@@ -163,12 +175,20 @@ func _build_buttons() -> void:
    var pie_slice = max_rotation / buttons.size()
    var rot = start_angle
    for i in buttons.size():
+      var wedge_button: WedgeButton
+      if !buttons[buttons.keys()[i]]:
+         wedge_button = WedgeButton.new(
+            i, corrected_origin, center_radius + center_gap, arc_width, 0, 0,
+            gap_width, buttons.keys()[i], font, font_size, colors, 64, outline_width
+         )
+         wedge_button.hide()
+         continue        # do not draw buttons with visibility false
       var start = rot
       rot += pie_slice
       var end = rot
-      var wedge_button = WedgeButton.new(
+      wedge_button = WedgeButton.new(
          i, corrected_origin, center_radius + center_gap, arc_width, start, end,
-         gap_width, buttons[i], font, font_size, colors, 64, outline_width
+         gap_width, buttons.keys()[i], font, font_size, colors, 64, outline_width
       )
       
       wedge_button.hovered.connect(_button_hovered)
